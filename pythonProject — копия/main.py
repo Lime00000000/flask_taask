@@ -4,6 +4,7 @@ import sqlalchemy
 import datetime
 from sqlalchemy import orm
 from data.User import User
+from data.Jobs import Jobs
 
 
 app = Flask(__name__)
@@ -13,17 +14,13 @@ db_session.global_init("db/blogs.db")
 
 def main():
     db_sess = db_session.create_session()
-    k = '_'
-    for i in range(3):
-        user = User()
-        user.surname = f"Scott{k * i}"
-        user.name = f"Ridley{k * i}"
-        user.age = 21
-        user.position = f"captain{k * i}"
-        user.speciality = f"research engineer{k * i}"
-        user.address = f"module_1{k * i}"
-        user.email = f"scott_chief{k * i}@mars.org"
-        db_sess.add(user)
+    user = Jobs()
+    user.team_leader = 1
+    user.job = 'deployment of residential modules 1 and 2'
+    user.work_size = 15
+    user.collaborators = '2, 3'
+    user.is_finished = False
+    db_sess.add(user)
     db_sess.commit()
     app.run()
 
